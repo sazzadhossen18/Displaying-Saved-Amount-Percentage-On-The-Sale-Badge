@@ -1,0 +1,45 @@
+
+
+
+Source: https://community.shopify.com/c/shopify-design/tutorial-displaying-saved-amount-percentage-on-the-sale-badge/td-p/923669
+
+
+
+ {% assign amount = 0 %}
+      {% for variant in product.variants %}
+      {% assign saving = variant.compare_at_price | minus: variant.price %}
+      {% assign amount = saving | at_least: amount %}
+      {% endfor %} 
+      {% capture saved_amount %}{{ amount | money_without_trailing_zeros }}{% endcapture %}
+
+
+      Save up to {{ saved_amount }}
+
+
+        {% assign percentage = 0 %}
+      {% for variant in product.variants %}
+      {% assign saving = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price | round %}
+      {% assign percentage = saving | at_least: percentage %}
+      {% endfor %} 
+
+
+      Save up to {{ percentage }}%       
+
+
+          {% assign amount = 0 %}
+      {% for variant in product.variants %}
+      {% assign saving = variant.compare_at_price | minus: variant.price %}
+      {% assign amount = saving | at_least: amount %}
+      {% endfor %} 
+      {% capture saved_amount %}{{ amount | money_without_trailing_zeros }}{% endcapture %}
+
+      Save up to <br>{{ saved_amount }}  
+
+
+
+           {% assign percentage = 0 %}
+      {% for variant in product.variants %}
+      {% assign saving = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price %}
+      {% assign percentage = saving | at_least: percentage %}
+      {% endfor %} 
+      Save up to <br>{{ percentage }}%                
